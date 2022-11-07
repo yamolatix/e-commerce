@@ -1,8 +1,9 @@
 const Sequelize = require("sequelize");
+const { database, host, dialect } = require("../config/db.config")
 
-const db = new Sequelize("goodvibes", null, null, {
-    host: "localhost",
-    dialect: "postgres",
+const db = new Sequelize(database, null, null, {
+    host,
+    dialect,
     logging: false
 })
 

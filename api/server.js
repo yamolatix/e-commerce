@@ -1,5 +1,5 @@
 const express = require('express'); // Requiero Express para iniciar las rutas 
-require("dotenv").config(); //Requiero el .env
+const { port } = require("./config/db.config")
 
 // Middelwares
 const volleyball = require('volleyball') // Depura solicitudes y respuestas asincrónicas
@@ -27,15 +27,16 @@ app.use('/api', routes); // Inicializo rutas
 // El Middleware para manejo de errores posee un parámetro extra, en este caso lo llamo err
 // Este último Middleware detecta los errores y los coloca en dicho parámetro
 app.use((err, req, res) => {
-    res.status(500).send(err.message)
+    res.status(500 || error.status).send({ status: "error", error: err.message })
 });
 
-const PORT = 3001 // Asigno número del puerto
+const PORT = port // Asigno número del puerto
 
 // Conecto servidor
 db.sync({ force: false })
     .then(() => {
         app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
+            console.log(`Server running`);
         });
-    });
+    })
+    .catch((error) => console.log(error))

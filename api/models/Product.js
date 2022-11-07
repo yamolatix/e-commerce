@@ -17,7 +17,8 @@ Product.init({
         defaultValue: 1
     },
     rating: {
-        type: S.INTEGER
+        type: S.INTEGER,
+        defaultValue: 0
     },
     brand: {
         type: S.STRING

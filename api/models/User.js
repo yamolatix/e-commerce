@@ -20,7 +20,7 @@ User.init({
         },
     },
     name: {
-        type: S.INTEGER,
+        type: S.STRING,
         allowNull: false,
     },
     lastname: {
@@ -43,7 +43,7 @@ User.init({
         type: S.STRING,
         allowNull: false,
         len: {
-            args: [3, 10],
+            args: [3, 25],
             msg: 'La contraseña tiene que tener 3 caracteres como mínimo y 10 como máximo.'
         }
     },
