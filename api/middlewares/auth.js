@@ -1,15 +1,15 @@
 
 const { verifyToken } = require('../helpers/generateToken')
 
-const checkAuth = async (req, res, next) => {
+exports.checkAuth = async (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ').pop()
         const tokenData = await verifyToken(token)
-        if (tokenData._id) {
+        if (tokenData.user.id) {
             next()
         } else {
             res.status(409)
-            res.send({ error: 'Tu por aqui no pasas!' })
+            res.send({ error: 'Por acá no pasas!' })
         }
 
     } catch (e) {
@@ -17,7 +17,4 @@ const checkAuth = async (req, res, next) => {
         res.status(409)
         res.send({ error: 'Tu por aqui no pasas!' })
     }
-
-}
-
-module.exports = checkAuth
+};

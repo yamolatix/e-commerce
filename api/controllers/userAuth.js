@@ -1,18 +1,17 @@
 const User = require("../models/User");
-const { encrypt, compare } = require('../helpers/handleBcrypt')
-const { tokenSign } = require('../helpers/generateToken')
+const { encrypt, compare } = require('../helpers/handleBcrypt');
+const { tokenSign } = require('../helpers/generateToken');
 
 exports.register = async (req, res) => {
     try {
-        const { username, name, lastname, email } = req.body;
+        const { username, name, lastname, email,role } = req.body;
         const password = encrypt(req.body.password)
 
-        await User.create({ username, name, lastname, email, password: password });
+        await User.create({ username, name, lastname, email,role, password: password });
 
         res.status(201).json("User created");
     } catch (error) {
-        console.log(error);
-        return res.status(500).json("Error in controller register")
+        res.status(500).json("Error in controller register")
     }
 };
 
@@ -33,8 +32,7 @@ exports.login = async (req, res) => {
             res.status(409).json("Incorrect password")
         }
     } catch (error) {
-        return res.status(500).json("Error in controller login")
-
+        res.status(500).json("Error in controller login")
     }
 };
 

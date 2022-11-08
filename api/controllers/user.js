@@ -2,16 +2,15 @@ const User = require("../models/User");
 
 exports.editUser = async (req, res) => {
     try {
-        const updateUser = await User.update(req.body, {
+        const { username, email, adress, phone } = req.body
+        const updateUser = await User.update({ username, email, adress, phone }, {
             where: { id: req.params.id },
             returning: true
         })
-
         const userEdited = updateUser[1][0]
 
-        return res.status(201).json(userEdited)
-
+        res.status(201).json(userEdited)
     } catch (error) {
-        return res.status(500).json("Error in controller register")
+        res.status(500).json("Error in controller register")
     }
 };
