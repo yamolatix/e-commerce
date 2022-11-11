@@ -1,13 +1,13 @@
-const User = require("../models/User");
+const { User } = require("../models");
 const { encrypt, compare } = require('../helpers/handleBcrypt');
 const { tokenSign } = require('../helpers/generateToken');
 
 exports.register = async (req, res) => {
     try {
-        const { username, name, lastname, email,role } = req.body;
+        const { username, name, lastname, email, role } = req.body;
         const password = encrypt(req.body.password)
 
-        await User.create({ username, name, lastname, email,role, password: password });
+        await User.create({ username, name, lastname, email, role, password: password });
 
         res.status(201).json("User created");
     } catch (error) {
